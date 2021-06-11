@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.luistovar.archapp.R
-import com.example.luistovar.archapp.presentation.MainActivity
 import com.example.luistovar.archapp.presentation.common.GoToOtherFragment
 import com.example.luistovar.archapp.presentation.listdata.ListFragment
 import kotlinx.android.synthetic.main.main_fragment.*

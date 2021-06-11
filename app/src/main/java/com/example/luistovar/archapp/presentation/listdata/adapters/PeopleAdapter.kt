@@ -10,12 +10,12 @@ import kotlinx.android.synthetic.main.item_people.view.*
 
 class PeopleAdapter : RecyclerView.Adapter<PeopleAdapter.MyHolder>() {
 
-    internal var peopleDataList: List<PeopleData?>? = listOf()
+    var peopleDataList: List<PeopleData?>? = listOf()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
-    private var onclickItem: ((peopleData: PeopleData) -> Unit)? = null
+    var onclickItem: ((peopleData: PeopleData) -> Unit)? = null
 
     class MyHolder(
         private val myView: View,
@@ -39,5 +39,5 @@ class PeopleAdapter : RecyclerView.Adapter<PeopleAdapter.MyHolder>() {
         peopleDataList?.get(position)?.let { holder.bind(it) }
     }
 
-    override fun getItemCount(): Int = peopleDataList?.size?:0
+    override fun getItemCount(): Int = peopleDataList?.size ?: 0
 }

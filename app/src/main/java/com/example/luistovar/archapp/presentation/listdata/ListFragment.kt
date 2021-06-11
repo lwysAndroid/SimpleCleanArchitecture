@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.luistovar.archapp.ArchApp
 import com.example.luistovar.archapp.R
 import com.example.luistovar.archapp.androidframework.network.NetWorkConfiguration
@@ -15,6 +16,7 @@ import com.example.luistovar.archapp.data.datasources.PeopleListSwDataSource
 import com.example.luistovar.archapp.data.datasources.local.PeopleListSwDataSourceRemoteImpl
 import com.example.luistovar.archapp.data.repositories.PeopleListSwRepository
 import com.example.luistovar.archapp.data.repositories.implementation.PeopleListSwRepositoryImpl
+import com.example.luistovar.archapp.domain.models.PeopleData
 import com.example.luistovar.archapp.domain.usecases.implementation.PeopleListSwUseCaseImpl
 import com.example.luistovar.archapp.presentation.common.GoToOtherFragment
 import com.example.luistovar.archapp.presentation.listdata.adapters.PeopleAdapter
@@ -28,8 +30,7 @@ class ListFragment : Fragment() {
         }
     }
 
-    private var netWorkConfiguration = NetWorkConfiguration()
-    private var starWarsApi: StarWarsApi = netWorkConfiguration.getStarWarsApi()
+    private var starWarsApi: StarWarsApi = NetWorkConfiguration.getStarWarsApi()
     private var peopleListSwDataSource = PeopleListSwDataSourceRemoteImpl(starWarsApi)
     private var peopleListSwRepository = PeopleListSwRepositoryImpl(peopleListSwDataSource)
     private var peopleListSwUseCase = PeopleListSwUseCaseImpl(peopleListSwRepository)
@@ -53,17 +54,23 @@ class ListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getPeopleListSw()
+        viewModel.getPeopleListSwResource()
     }
 
     private fun setupView() {
         viewModel =
             ViewModelProvider(this, listViewModelProviderFactory).get(ListViewModel::class.java)
 
+        peopleAdapter.onclickItem = this::onClickOnItem
         rVPeople.adapter = peopleAdapter
         viewModel.peopleListSwLiveData.observe(viewLifecycleOwner) { peopleList ->
             peopleAdapter.peopleDataList = peopleList?.peopleData
         }
+
+        viewModel.showError.observe(viewLifecycleOwner) { error ->
+            error?.let { showError(it) }
+        }
+
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
                 progressBar.visibility = View.VISIBLE
@@ -71,6 +78,15 @@ class ListFragment : Fragment() {
                 progressBar.visibility = View.GONE
             }
         }
+    }
+
+    private fun showError(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun onClickOnItem(peopleData: PeopleData) {
+        Toast.makeText(context, "name: ${peopleData.name}", Toast.LENGTH_SHORT).show()
+
     }
 
 

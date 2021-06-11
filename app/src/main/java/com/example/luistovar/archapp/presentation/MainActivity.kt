@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(), GoToOtherFragment {
 
     }
 
-    override fun goToOtherFragment(fragment: Fragment) {
+    override fun goToOtherFragment(fragment: Fragment, addToBackStackName: String) {
         supportFragmentManager.beginTransaction()
             .replace(container, fragment)
             .addToBackStack("")

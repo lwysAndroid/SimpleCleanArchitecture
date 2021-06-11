@@ -4,5 +4,5 @@ import androidx.fragment.app.Fragment
 
 interface GoToOtherFragment {
 
-    fun goToOtherFragment(fragment: Fragment)
+    fun goToOtherFragment(fragment: Fragment, addToBackStackName: String = "")
 }
