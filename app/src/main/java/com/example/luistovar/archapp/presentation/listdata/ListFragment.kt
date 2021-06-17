@@ -2,19 +2,15 @@ package com.example.luistovar.archapp.presentation.listdata
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.luistovar.archapp.ArchApp
 import com.example.luistovar.archapp.R
 import com.example.luistovar.archapp.androidframework.network.NetWorkConfiguration
 import com.example.luistovar.archapp.androidframework.network.webservices.StarWarsApi
-import com.example.luistovar.archapp.data.datasources.PeopleListSwDataSource
 import com.example.luistovar.archapp.data.datasources.local.PeopleListSwDataSourceRemoteImpl
-import com.example.luistovar.archapp.data.repositories.PeopleListSwRepository
 import com.example.luistovar.archapp.data.repositories.implementation.PeopleListSwRepositoryImpl
 import com.example.luistovar.archapp.domain.models.PeopleData
 import com.example.luistovar.archapp.domain.usecases.implementation.PeopleListSwUseCaseImpl

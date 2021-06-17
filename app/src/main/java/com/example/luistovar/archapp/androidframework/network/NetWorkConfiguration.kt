@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 
@@ -15,6 +16,7 @@ object NetWorkConfiguration {
         getRetrofitClient()
     }
 
+    private val TAG_REQUEST = "RequestClient"
     private const val READ_TIME_OUT: Long = 60
     private const val CONECTION_TIME_OUT: Long = 60
 
@@ -26,7 +28,7 @@ object NetWorkConfiguration {
             val clientBuilder = getOkHttpClientBuilder()
 
             retrofit = Retrofit.Builder()
-                .baseUrl("https://swapi.dev/api/")
+                .baseUrl(BuildConfig.BASE_URL)
                 .client(clientBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
@@ -47,7 +49,11 @@ object NetWorkConfiguration {
     }
 
     private fun getLoggingInterceptor(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor().apply {
+        HttpLoggingInterceptor(object :HttpLoggingInterceptor.Logger{
+            override fun log(message: String) {
+                Timber.tag(TAG_REQUEST).d(message)
+            }
+        }).apply {
             level =
                 if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
         }

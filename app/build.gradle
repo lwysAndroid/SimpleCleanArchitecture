@@ -4,6 +4,19 @@ plugins {
     id 'kotlin-android-extensions'
 }
 
+def GM_API_KEY = '"' + gmApiKey + '"' ?: '"NO GOOGLE MAPS API KEY"'
+
+def BASE_URL_DEFAULT = '"' + BASE_URL_DEFAULT + '"' ?: '"NO BASE URL"'
+def BASE_URL_SIMULATION = '"' + BASE_URL_SIMULATION + '"' ?: '"NO BASE URL"'
+def BASE_URL_DEVELOPMENT = '"' + BASE_URL_DEVELOPMENT + '"' ?: '"NO BASE URL"'
+def BASE_URL_QA = '"' + BASE_URL_QA + '"' ?: '"NO BASE URL"'
+def BASE_URL_PRODUCTION = '"' + BASE_URL_PRODUCTION + '"' ?: '"NO BASE URL"'
+
+android.buildTypes.each { type ->
+    type.resValue "string", "api_key_google_maps", GM_API_KEY
+    type.buildConfigField "String", "BASE_URL", BASE_URL_DEFAULT
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -19,11 +32,48 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
             minifyEnabled false
+            useProguard false
+            shrinkResources false
+        }
+        release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "version"
+
+    productFlavors {
+        simulation {
+            dimension "version"
+            applicationIdSuffix ".simulation"
+            versionNameSuffix "-simulation"
+            buildConfigField "String", "BASE_URL", BASE_URL_SIMULATION
+        }
+        development {
+            dimension "version"
+            applicationIdSuffix ".development"
+            versionNameSuffix "-development"
+            buildConfigField "String", "BASE_URL", BASE_URL_DEVELOPMENT
+        }
+        qa {
+            dimension "version"
+            applicationIdSuffix ".qa"
+            versionNameSuffix "-qa"
+            buildConfigField "String", "BASE_URL", BASE_URL_QA
+        }
+        production {
+            dimension "version"
+            applicationIdSuffix ".production"
+            versionNameSuffix "-production"
+            buildConfigField "String", "BASE_URL", BASE_URL_PRODUCTION
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -52,12 +102,15 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
     //okHttp
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
-
+    //Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 
 
     //Test
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:2.23.0'
+
+    //Android Test
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    testImplementation 'org.mockito:mockito-core:2.23.0'
 }
