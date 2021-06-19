@@ -15,28 +15,14 @@ class ListViewModel(private val peopleListSwUseCase: PeopleListSwUseCase) :
     ViewModel() {
 
     private val _peopleListSwLiveData = MutableLiveData<PeopleListSw?>()
-    val peopleListSwLiveData: LiveData<PeopleListSw?>
-        get() = _peopleListSwLiveData
+    val peopleListSwLiveData: LiveData<PeopleListSw?> = _peopleListSwLiveData
 
     private val _showError = MutableLiveData<String?>()
-    val showError: LiveData<String?>
-        get() = _showError
+    val showError: LiveData<String?> = _showError
 
     private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean>
-        get() = _isLoading
+    val isLoading: LiveData<Boolean> = _isLoading
 
-
-    fun getPeopleListSw() {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                _isLoading.postValue(true)
-                val people = peopleListSwUseCase.getPeopleListSW()
-                _peopleListSwLiveData.postValue(people)
-                _isLoading.postValue(false)
-            }
-        }
-    }
 
     fun getPeopleListSwResource() {
         viewModelScope.launch {

@@ -1,34 +1,33 @@
 package com.example.luistovar.archapp.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import com.example.luistovar.archapp.R
-import com.example.luistovar.archapp.presentation.common.GoToOtherFragment
+import com.example.luistovar.archapp.presentation.common.basecomponents.BaseActivity
 import com.example.luistovar.archapp.presentation.home.MainFragment
 
-class MainActivity : AppCompatActivity(), GoToOtherFragment {
+/**
+ * MainActivity
+ *
+ * Activity that contains the root view in which will be set all the fragments
+ */
+class MainActivity : BaseActivity(R.layout.main_activity) {
 
-    private val container: Int = R.id.container
+    /**
+     * Variable that refer to the id of the container view for the fragments
+     */
+    override val containerViewId: Int
+        get() = R.id.container
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(container, MainFragment.newInstance(this))
+                .replace(getFragmentContainerViewId(), MainFragment.newInstance())
                 .commitNow()
         }
-    }
-
-    fun changeFragment(fragment: Fragment) {
 
     }
 
-    override fun goToOtherFragment(fragment: Fragment, addToBackStackName: String) {
-        supportFragmentManager.beginTransaction()
-            .replace(container, fragment)
-            .addToBackStack("")
-            .commit()
-    }
 }

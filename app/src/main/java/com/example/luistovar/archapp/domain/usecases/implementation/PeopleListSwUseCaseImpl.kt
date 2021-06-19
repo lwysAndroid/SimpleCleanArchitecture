@@ -8,8 +8,6 @@ import com.example.luistovar.archapp.domain.usecases.PeopleListSwUseCase
 class PeopleListSwUseCaseImpl(private val peopleListSwRepository: PeopleListSwRepository) :
     PeopleListSwUseCase {
 
-    override suspend fun getPeopleListSW(): PeopleListSw? =
-        peopleListSwRepository.getPeopleListSW()
 
     override suspend fun getPeopleListSwResource(): Resource<PeopleListSw?> =
         peopleListSwRepository.getPeopleListSwResource()

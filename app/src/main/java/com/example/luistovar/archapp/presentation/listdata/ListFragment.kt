@@ -2,46 +2,47 @@ package com.example.luistovar.archapp.presentation.listdata
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import com.example.luistovar.archapp.R
 import com.example.luistovar.archapp.androidframework.network.NetWorkConfiguration
 import com.example.luistovar.archapp.androidframework.network.webservices.StarWarsApi
-import com.example.luistovar.archapp.data.datasources.local.PeopleListSwDataSourceRemoteImpl
+import com.example.luistovar.archapp.data.datasources.remote.impl.PeopleListSwDataSourceRemoteImpl
 import com.example.luistovar.archapp.data.repositories.implementation.PeopleListSwRepositoryImpl
 import com.example.luistovar.archapp.domain.models.PeopleData
 import com.example.luistovar.archapp.domain.usecases.implementation.PeopleListSwUseCaseImpl
-import com.example.luistovar.archapp.presentation.common.GoToOtherFragment
+import com.example.luistovar.archapp.presentation.common.basecomponents.BaseFragment
 import com.example.luistovar.archapp.presentation.listdata.adapters.PeopleAdapter
 import kotlinx.android.synthetic.main.list_fragment.*
 
-class ListFragment : Fragment() {
+/**
+ * ListFragment
+ *
+ * Fragment to show a list retrieved from a service
+ */
+class ListFragment : BaseFragment(R.layout.list_fragment) {
 
     companion object {
-        fun newInstance(goToOtherFragment: GoToOtherFragment?) = ListFragment().apply {
-            this.goToOtherFragment = goToOtherFragment
-        }
+        fun newInstance() = ListFragment()
     }
 
+    // This is a dependency injection by hand and should be done by other tool like Dagger 2, Hilt or Koin
     private var starWarsApi: StarWarsApi = NetWorkConfiguration.getStarWarsApi()
     private var peopleListSwDataSource = PeopleListSwDataSourceRemoteImpl(starWarsApi)
     private var peopleListSwRepository = PeopleListSwRepositoryImpl(peopleListSwDataSource)
     private var peopleListSwUseCase = PeopleListSwUseCaseImpl(peopleListSwRepository)
     private var listViewModelProviderFactory = ListViewModelProviderFactory(peopleListSwUseCase)
 
-    private var goToOtherFragment: GoToOtherFragment? = null
+    /**
+     * ListViewModel instance
+     */
     private lateinit var viewModel: ListViewModel
+
+    /**
+     * Adapter to manage the list and show data on Recycler View
+     */
     private val peopleAdapter = PeopleAdapter()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.list_fragment, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,6 +54,9 @@ class ListFragment : Fragment() {
         viewModel.getPeopleListSwResource()
     }
 
+    /**
+     * Method to set listeners and the init configuration of the view
+     */
     private fun setupView() {
         viewModel =
             ViewModelProvider(this, listViewModelProviderFactory).get(ListViewModel::class.java)
@@ -76,13 +80,18 @@ class ListFragment : Fragment() {
         }
     }
 
+    /**
+     * Method to show error
+     */
     private fun showError(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
+    /**
+     * Method to handle click on the items of the recycler view
+     */
     private fun onClickOnItem(peopleData: PeopleData) {
         Toast.makeText(context, "name: ${peopleData.name}", Toast.LENGTH_SHORT).show()
-
     }
 
 

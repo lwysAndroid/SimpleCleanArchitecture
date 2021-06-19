@@ -5,8 +5,6 @@ import com.example.luistovar.archapp.domain.models.Resource
 
 interface PeopleListSwRepository {
 
-    suspend fun getPeopleListSW(): PeopleListSw?
-
     suspend fun getPeopleListSwResource(): Resource<PeopleListSw?>
 
 }
