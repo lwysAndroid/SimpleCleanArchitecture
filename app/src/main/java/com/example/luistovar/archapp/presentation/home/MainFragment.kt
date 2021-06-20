@@ -3,9 +3,9 @@ package com.example.luistovar.archapp.presentation.home
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.example.luistovar.archapp.R
 import com.example.luistovar.archapp.presentation.common.basecomponents.BaseFragment
-import com.example.luistovar.archapp.presentation.listdata.ListFragment
 import kotlinx.android.synthetic.main.main_fragment.*
 
 /**
@@ -15,9 +15,6 @@ import kotlinx.android.synthetic.main.main_fragment.*
  */
 class MainFragment : BaseFragment(R.layout.main_fragment) {
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
 
     /**
      * MainViewModel instance
@@ -36,7 +33,8 @@ class MainFragment : BaseFragment(R.layout.main_fragment) {
     private fun setupView() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         btnGoListScreen.setOnClickListener {
-            mGoToOtherFragment?.goToOtherFragment(ListFragment.newInstance())
+            val action = MainFragmentDirections.actionMainFragmentToListFragment(500)
+            findNavController().navigate(action)
         }
     }
 

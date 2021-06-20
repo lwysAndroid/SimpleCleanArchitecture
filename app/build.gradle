@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
+    //Safe Args
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 def GM_API_KEY = '"' + gmApiKey + '"' ?: '"NO GOOGLE MAPS API KEY"'
@@ -104,6 +106,10 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
     //Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    //Navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
 
     //Test

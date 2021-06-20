@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.fragment.navArgs
 import com.example.luistovar.archapp.R
 import com.example.luistovar.archapp.androidframework.network.NetWorkConfiguration
 import com.example.luistovar.archapp.androidframework.network.webservices.StarWarsApi
@@ -22,9 +23,6 @@ import kotlinx.android.synthetic.main.list_fragment.*
  */
 class ListFragment : BaseFragment(R.layout.list_fragment) {
 
-    companion object {
-        fun newInstance() = ListFragment()
-    }
 
     // This is a dependency injection by hand and should be done by other tool like Dagger 2, Hilt or Koin
     private var starWarsApi: StarWarsApi = NetWorkConfiguration.getStarWarsApi()
@@ -33,6 +31,8 @@ class ListFragment : BaseFragment(R.layout.list_fragment) {
     private var peopleListSwUseCase = PeopleListSwUseCaseImpl(peopleListSwRepository)
     private var listViewModelProviderFactory = ListViewModelProviderFactory(peopleListSwUseCase)
 
+
+    private val args: ListFragmentArgs by navArgs()
     /**
      * ListViewModel instance
      */
@@ -78,6 +78,15 @@ class ListFragment : BaseFragment(R.layout.list_fragment) {
                 progressBar.visibility = View.GONE
             }
         }
+        showArgs()
+    }
+
+    /**
+     * Method to show the args passed using the Navigation Component
+     */
+    private fun showArgs() {
+        args.amount
+        Toast.makeText(context,"amount: ${args.amount}",Toast.LENGTH_SHORT).show()
     }
 
     /**
