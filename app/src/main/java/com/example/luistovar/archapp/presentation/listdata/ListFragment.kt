@@ -11,6 +11,7 @@ import com.example.luistovar.archapp.androidframework.network.webservices.StarWa
 import com.example.luistovar.archapp.data.datasources.remote.impl.PeopleListSwDataSourceRemoteImpl
 import com.example.luistovar.archapp.data.repositories.implementation.PeopleListSwRepositoryImpl
 import com.example.luistovar.archapp.domain.models.PeopleData
+import com.example.luistovar.archapp.domain.models.User
 import com.example.luistovar.archapp.domain.usecases.implementation.PeopleListSwUseCaseImpl
 import com.example.luistovar.archapp.presentation.common.basecomponents.BaseFragment
 import com.example.luistovar.archapp.presentation.listdata.adapters.PeopleAdapter
@@ -33,6 +34,7 @@ class ListFragment : BaseFragment(R.layout.list_fragment) {
 
 
     private val args: ListFragmentArgs by navArgs()
+
     /**
      * ListViewModel instance
      */
@@ -85,8 +87,12 @@ class ListFragment : BaseFragment(R.layout.list_fragment) {
      * Method to show the args passed using the Navigation Component
      */
     private fun showArgs() {
-        args.amount
-        Toast.makeText(context,"amount: ${args.amount}",Toast.LENGTH_SHORT).show()
+        val user = args.currentUser as User
+        Toast.makeText(
+            context,
+            "Amount: ${args.amount}, Current User: ${user.firstName} ${user.lastName}",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     /**

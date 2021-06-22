@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.example.luistovar.archapp.R
+import com.example.luistovar.archapp.domain.models.User
 import com.example.luistovar.archapp.presentation.common.basecomponents.BaseFragment
 import kotlinx.android.synthetic.main.main_fragment.*
 
@@ -33,7 +34,8 @@ class MainFragment : BaseFragment(R.layout.main_fragment) {
     private fun setupView() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         btnGoListScreen.setOnClickListener {
-            val action = MainFragmentDirections.actionMainFragmentToListFragment(500)
+            val action =
+                MainFragmentDirections.actionMainFragmentToListFragment(500, User("Luis", "Tovar"))
             findNavController().navigate(action)
         }
     }
