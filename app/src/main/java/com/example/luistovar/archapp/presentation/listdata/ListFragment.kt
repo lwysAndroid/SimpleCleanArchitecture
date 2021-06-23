@@ -10,12 +10,12 @@ import com.example.luistovar.archapp.androidframework.network.NetWorkConfigurati
 import com.example.luistovar.archapp.androidframework.network.webservices.StarWarsApi
 import com.example.luistovar.archapp.data.datasources.remote.impl.PeopleListSwDataSourceRemoteImpl
 import com.example.luistovar.archapp.data.repositories.implementation.PeopleListSwRepositoryImpl
+import com.example.luistovar.archapp.databinding.ListFragmentBinding
 import com.example.luistovar.archapp.domain.models.PeopleData
 import com.example.luistovar.archapp.domain.models.User
 import com.example.luistovar.archapp.domain.usecases.implementation.PeopleListSwUseCaseImpl
 import com.example.luistovar.archapp.presentation.common.basecomponents.BaseFragment
 import com.example.luistovar.archapp.presentation.listdata.adapters.PeopleAdapter
-import kotlinx.android.synthetic.main.list_fragment.*
 
 /**
  * ListFragment
@@ -33,6 +33,14 @@ class ListFragment : BaseFragment(R.layout.list_fragment) {
     private var listViewModelProviderFactory = ListViewModelProviderFactory(peopleListSwUseCase)
 
 
+    /**
+     * View Binding instance
+     */
+    private lateinit var binding: ListFragmentBinding
+
+    /**
+     * Args to manage the arguments passed
+     */
     private val args: ListFragmentArgs by navArgs()
 
     /**
@@ -48,6 +56,7 @@ class ListFragment : BaseFragment(R.layout.list_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = ListFragmentBinding.bind(view)
         setupView()
     }
 
@@ -64,7 +73,7 @@ class ListFragment : BaseFragment(R.layout.list_fragment) {
             ViewModelProvider(this, listViewModelProviderFactory).get(ListViewModel::class.java)
 
         peopleAdapter.onclickItem = this::onClickOnItem
-        rVPeople.adapter = peopleAdapter
+        binding.rVPeople.adapter = peopleAdapter
         viewModel.peopleListSwLiveData.observe(viewLifecycleOwner) { peopleList ->
             peopleAdapter.peopleDataList = peopleList?.peopleData
         }
@@ -75,9 +84,9 @@ class ListFragment : BaseFragment(R.layout.list_fragment) {
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
-                progressBar.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.VISIBLE
             } else {
-                progressBar.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
             }
         }
         showArgs()

@@ -1,7 +1,7 @@
 package com.example.luistovar.archapp.domain.models
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class User(

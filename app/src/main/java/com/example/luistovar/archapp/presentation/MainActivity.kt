@@ -1,9 +1,7 @@
 package com.example.luistovar.archapp.presentation
 
-import android.os.Bundle
 import com.example.luistovar.archapp.R
 import com.example.luistovar.archapp.presentation.common.basecomponents.BaseActivity
-import com.example.luistovar.archapp.presentation.home.MainFragment
 
 /**
  * MainActivity
