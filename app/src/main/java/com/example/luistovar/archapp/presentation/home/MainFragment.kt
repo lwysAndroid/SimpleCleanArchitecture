@@ -1,6 +1,5 @@
 package com.example.luistovar.archapp.presentation.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
@@ -8,6 +7,7 @@ import com.example.luistovar.archapp.R
 import com.example.luistovar.archapp.databinding.MainFragmentBinding
 import com.example.luistovar.archapp.domain.models.User
 import com.example.luistovar.archapp.presentation.common.basecomponents.BaseFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * MainFragment
@@ -24,7 +24,7 @@ class MainFragment : BaseFragment(R.layout.main_fragment) {
     /**
      * MainViewModel instance
      */
-    private lateinit var viewModel: MainViewModel
+    private val mViewModel: MainViewModel by viewModel()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +37,6 @@ class MainFragment : BaseFragment(R.layout.main_fragment) {
      * Method to set listeners and the init configuration of the view
      */
     private fun setupView() {
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.btnGoListScreen.setOnClickListener {
             val action =
                 MainFragmentDirections.actionMainFragmentToListFragment(500, User("Luis", "Tovar"))

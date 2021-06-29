@@ -1,21 +1,16 @@
 package com.example.luistovar.archapp.presentation.listdata
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import com.example.luistovar.archapp.R
-import com.example.luistovar.archapp.androidframework.network.NetWorkConfiguration
-import com.example.luistovar.archapp.androidframework.network.webservices.StarWarsApi
-import com.example.luistovar.archapp.data.datasources.remote.impl.PeopleListSwDataSourceRemoteImpl
-import com.example.luistovar.archapp.data.repositories.implementation.PeopleListSwRepositoryImpl
 import com.example.luistovar.archapp.databinding.ListFragmentBinding
 import com.example.luistovar.archapp.domain.models.PeopleData
 import com.example.luistovar.archapp.domain.models.User
-import com.example.luistovar.archapp.domain.usecases.implementation.PeopleListSwUseCaseImpl
 import com.example.luistovar.archapp.presentation.common.basecomponents.BaseFragment
 import com.example.luistovar.archapp.presentation.listdata.adapters.PeopleAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * ListFragment
@@ -23,15 +18,6 @@ import com.example.luistovar.archapp.presentation.listdata.adapters.PeopleAdapte
  * Fragment to show a list retrieved from a service
  */
 class ListFragment : BaseFragment(R.layout.list_fragment) {
-
-
-    // This is a dependency injection by hand and should be done by other tool like Dagger 2, Hilt or Koin
-    private var starWarsApi: StarWarsApi = NetWorkConfiguration.getStarWarsApi()
-    private var peopleListSwDataSource = PeopleListSwDataSourceRemoteImpl(starWarsApi)
-    private var peopleListSwRepository = PeopleListSwRepositoryImpl(peopleListSwDataSource)
-    private var peopleListSwUseCase = PeopleListSwUseCaseImpl(peopleListSwRepository)
-    private var listViewModelProviderFactory = ListViewModelProviderFactory(peopleListSwUseCase)
-
 
     /**
      * View Binding instance
@@ -46,7 +32,7 @@ class ListFragment : BaseFragment(R.layout.list_fragment) {
     /**
      * ListViewModel instance
      */
-    private lateinit var viewModel: ListViewModel
+    private val mViewModel: ListViewModel by viewModel()
 
     /**
      * Adapter to manage the list and show data on Recycler View
@@ -62,27 +48,24 @@ class ListFragment : BaseFragment(R.layout.list_fragment) {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getPeopleListSwResource()
+        mViewModel.getPeopleListSwResource()
     }
 
     /**
      * Method to set listeners and the init configuration of the view
      */
     private fun setupView() {
-        viewModel =
-            ViewModelProvider(this, listViewModelProviderFactory).get(ListViewModel::class.java)
-
         peopleAdapter.onclickItem = this::onClickOnItem
         binding.rVPeople.adapter = peopleAdapter
-        viewModel.peopleListSwLiveData.observe(viewLifecycleOwner) { peopleList ->
+        mViewModel.peopleListSwLiveData.observe(viewLifecycleOwner) { peopleList ->
             peopleAdapter.peopleDataList = peopleList?.peopleData
         }
 
-        viewModel.showError.observe(viewLifecycleOwner) { error ->
+        mViewModel.showError.observe(viewLifecycleOwner) { error ->
             error?.let { showError(it) }
         }
 
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+        mViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
                 binding.progressBar.visibility = View.VISIBLE
             } else {
