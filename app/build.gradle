@@ -4,6 +4,9 @@ plugins {
     id 'kotlin-parcelize'
     //Safe Args
     id 'androidx.navigation.safeargs.kotlin'
+    // DI Hilt
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 def GM_API_KEY = '"' + gmApiKey + '"' ?: '"NO GOOGLE MAPS API KEY"'
@@ -91,9 +94,9 @@ android {
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.5.0'
+    implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
@@ -104,9 +107,9 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.7'
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     //okHttp
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.3.1'
     //Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
@@ -114,15 +117,25 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
-    // Koin main features for Android (Scope,ViewModel ...)
-    implementation "io.insert-koin:koin-android:$koin_version"
+    //DI Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
-    //--********--********--********--********--********--********
-    //Test
+    //--********--********--**** TESTS ****--********--********--********
+
+    //Local unit tests
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:2.23.0'
+    //DI Hilt
+    testImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    testAnnotationProcessor "com.google.dagger:hilt-compiler:$hilt_version"
 
-    //Android Test
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //Instrumentation tests (Android Test)
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    //DI Hilt
+    androidTestImplementation  "com.google.dagger:hilt-android-testing:$hilt_version"
+    androidTestAnnotationProcessor "com.google.dagger:hilt-compiler:$hilt_version"
 }

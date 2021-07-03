@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.luistovar.archapp.presentation.home.MainFragment"
+        android:name="com.example.luistovar.archapp.framework.presentation.main.MainFragment"
         android:label="main_fragment"
         tools:layout="@layout/main_fragment">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.example.luistovar.archapp.presentation.listdata.ListFragment"
+        android:name="com.example.luistovar.archapp.framework.presentation.listdata.ListFragment"
         android:label="list_fragment"
         tools:layout="@layout/list_fragment">
         <argument
