@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.luistovar.archapp.R
+import com.example.luistovar.archapp.databinding.ItemPeopleBinding
 import com.example.luistovar.archapp.domain.models.PeopleData
-import kotlinx.android.synthetic.main.item_people.view.*
 
 class PeopleAdapter : RecyclerView.Adapter<PeopleAdapter.MyHolder>() {
 
@@ -18,15 +18,17 @@ class PeopleAdapter : RecyclerView.Adapter<PeopleAdapter.MyHolder>() {
     var onclickItem: ((peopleData: PeopleData) -> Unit)? = null
 
     class MyHolder(
-        private val myView: View,
+        myView: View,
         private val onClick: ((peopleData: PeopleData) -> Unit)?
     ) :
         RecyclerView.ViewHolder(myView) {
 
+        private var binding: ItemPeopleBinding = ItemPeopleBinding.bind(myView)
+
         fun bind(peopleData: PeopleData) {
-            myView.peopleContainer.setOnClickListener { onClick?.invoke(peopleData) }
-            myView.tvPeopleName.text = peopleData.name
-            myView.tvPeopleGender.text = peopleData.gender
+            binding.peopleContainer.setOnClickListener { onClick?.invoke(peopleData) }
+            binding.tvPeopleName.text = peopleData.name
+            binding.tvPeopleGender.text = peopleData.gender
         }
     }
 

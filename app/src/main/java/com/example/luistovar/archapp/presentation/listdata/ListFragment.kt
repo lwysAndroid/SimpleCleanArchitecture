@@ -4,16 +4,18 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.fragment.navArgs
 import com.example.luistovar.archapp.R
 import com.example.luistovar.archapp.androidframework.network.NetWorkConfiguration
 import com.example.luistovar.archapp.androidframework.network.webservices.StarWarsApi
 import com.example.luistovar.archapp.data.datasources.remote.impl.PeopleListSwDataSourceRemoteImpl
 import com.example.luistovar.archapp.data.repositories.implementation.PeopleListSwRepositoryImpl
+import com.example.luistovar.archapp.databinding.ListFragmentBinding
 import com.example.luistovar.archapp.domain.models.PeopleData
+import com.example.luistovar.archapp.domain.models.User
 import com.example.luistovar.archapp.domain.usecases.implementation.PeopleListSwUseCaseImpl
 import com.example.luistovar.archapp.presentation.common.basecomponents.BaseFragment
 import com.example.luistovar.archapp.presentation.listdata.adapters.PeopleAdapter
-import kotlinx.android.synthetic.main.list_fragment.*
 
 /**
  * ListFragment
@@ -22,9 +24,6 @@ import kotlinx.android.synthetic.main.list_fragment.*
  */
 class ListFragment : BaseFragment(R.layout.list_fragment) {
 
-    companion object {
-        fun newInstance() = ListFragment()
-    }
 
     // This is a dependency injection by hand and should be done by other tool like Dagger 2, Hilt or Koin
     private var starWarsApi: StarWarsApi = NetWorkConfiguration.getStarWarsApi()
@@ -32,6 +31,17 @@ class ListFragment : BaseFragment(R.layout.list_fragment) {
     private var peopleListSwRepository = PeopleListSwRepositoryImpl(peopleListSwDataSource)
     private var peopleListSwUseCase = PeopleListSwUseCaseImpl(peopleListSwRepository)
     private var listViewModelProviderFactory = ListViewModelProviderFactory(peopleListSwUseCase)
+
+
+    /**
+     * View Binding instance
+     */
+    private lateinit var binding: ListFragmentBinding
+
+    /**
+     * Args to manage the arguments passed
+     */
+    private val args: ListFragmentArgs by navArgs()
 
     /**
      * ListViewModel instance
@@ -46,6 +56,7 @@ class ListFragment : BaseFragment(R.layout.list_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = ListFragmentBinding.bind(view)
         setupView()
     }
 
@@ -62,7 +73,7 @@ class ListFragment : BaseFragment(R.layout.list_fragment) {
             ViewModelProvider(this, listViewModelProviderFactory).get(ListViewModel::class.java)
 
         peopleAdapter.onclickItem = this::onClickOnItem
-        rVPeople.adapter = peopleAdapter
+        binding.rVPeople.adapter = peopleAdapter
         viewModel.peopleListSwLiveData.observe(viewLifecycleOwner) { peopleList ->
             peopleAdapter.peopleDataList = peopleList?.peopleData
         }
@@ -73,11 +84,24 @@ class ListFragment : BaseFragment(R.layout.list_fragment) {
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
-                progressBar.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.VISIBLE
             } else {
-                progressBar.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
             }
         }
+        showArgs()
+    }
+
+    /**
+     * Method to show the args passed using the Navigation Component
+     */
+    private fun showArgs() {
+        val user = args.currentUser as User
+        Toast.makeText(
+            context,
+            "Amount: ${args.amount}, Current User: ${user.firstName} ${user.lastName}",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     /**
