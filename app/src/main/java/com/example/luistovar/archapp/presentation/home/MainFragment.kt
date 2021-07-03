@@ -3,10 +3,11 @@ package com.example.luistovar.archapp.presentation.home
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.example.luistovar.archapp.R
+import com.example.luistovar.archapp.databinding.MainFragmentBinding
+import com.example.luistovar.archapp.domain.models.User
 import com.example.luistovar.archapp.presentation.common.basecomponents.BaseFragment
-import com.example.luistovar.archapp.presentation.listdata.ListFragment
-import kotlinx.android.synthetic.main.main_fragment.*
 
 /**
  * MainFragment
@@ -15,10 +16,11 @@ import kotlinx.android.synthetic.main.main_fragment.*
  */
 class MainFragment : BaseFragment(R.layout.main_fragment) {
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
 
+    /**
+     * View Binding instance
+     */
+    private lateinit var binding: MainFragmentBinding
     /**
      * MainViewModel instance
      */
@@ -27,6 +29,7 @@ class MainFragment : BaseFragment(R.layout.main_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = MainFragmentBinding.bind(view)
         setupView()
     }
 
@@ -35,8 +38,10 @@ class MainFragment : BaseFragment(R.layout.main_fragment) {
      */
     private fun setupView() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        btnGoListScreen.setOnClickListener {
-            mGoToOtherFragment?.goToOtherFragment(ListFragment.newInstance())
+        binding.btnGoListScreen.setOnClickListener {
+            val action =
+                MainFragmentDirections.actionMainFragmentToListFragment(500, User("Luis", "Tovar"))
+            findNavController().navigate(action)
         }
     }
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.luistovar.archapp.presentation.home.MainFragment"
+        android:label="main_fragment"
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.example.luistovar.archapp.presentation.listdata.ListFragment"
+        android:label="list_fragment"
+        tools:layout="@layout/list_fragment">
+        <argument
+            android:name="amount"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <argument
+            android:name="currentUser"
+            app:argType="com.example.luistovar.archapp.domain.models.User" />
+    </fragment>
+</navigation>
