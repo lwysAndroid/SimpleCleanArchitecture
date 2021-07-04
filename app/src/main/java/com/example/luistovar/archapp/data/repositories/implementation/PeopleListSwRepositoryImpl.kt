@@ -1,15 +1,18 @@
 package com.example.luistovar.archapp.data.repositories.implementation
 
-import com.example.luistovar.archapp.data.datasources.remote.PeopleListSwDataSource
+import com.example.luistovar.archapp.data.datasources.remote.PeopleListSwRemoteDataSource
 import com.example.luistovar.archapp.data.repositories.PeopleListSwRepository
 import com.example.luistovar.archapp.domain.models.PeopleListSw
 import com.example.luistovar.archapp.domain.models.Resource
+import javax.inject.Inject
 
-class PeopleListSwRepositoryImpl(private val remoteDataSource: PeopleListSwDataSource) :
+class PeopleListSwRepositoryImpl @Inject constructor(
+    private val remoteRemoteDataSource: PeopleListSwRemoteDataSource
+) :
     PeopleListSwRepository {
 
 
     override suspend fun getPeopleListSwResource(): Resource<PeopleListSw?> =
-        remoteDataSource.getPeopleListSwResource()
+        remoteRemoteDataSource.getPeopleListSwResource()
 
 }
