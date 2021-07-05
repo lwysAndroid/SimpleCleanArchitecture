@@ -130,6 +130,12 @@ dependencies {
     //DI Hilt
     testImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
     testAnnotationProcessor "com.google.dagger:hilt-compiler:$hilt_version"
+    //Coroutines Test
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0'
+    //Google Truth
+    testImplementation "com.google.truth:truth:$truthVersion"
+
 
 
     //Instrumentation tests (Android Test)
@@ -138,4 +144,7 @@ dependencies {
     //DI Hilt
     androidTestImplementation  "com.google.dagger:hilt-android-testing:$hilt_version"
     androidTestAnnotationProcessor "com.google.dagger:hilt-compiler:$hilt_version"
+    //Coroutines Test
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0'
 }
