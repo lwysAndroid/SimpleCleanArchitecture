@@ -1,9 +1,9 @@
-package com.example.luistovar.archapp.usecases.implementation
+package com.example.luistovar.archapp.domain.usecases.implementation
 
 import com.example.luistovar.archapp.data.repositories.PeopleListSwRepository
-import com.example.luistovar.archapp.domain.models.PeopleListSw
+import com.example.luistovar.archapp.framework.network.webservices.models.PeopleListSw
 import com.example.luistovar.archapp.domain.models.Resource
-import com.example.luistovar.archapp.usecases.PeopleListSwUseCase
+import com.example.luistovar.archapp.domain.usecases.PeopleListSwUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

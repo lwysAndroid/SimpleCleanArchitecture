@@ -7,8 +7,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.luistovar.archapp.R
 import com.example.luistovar.archapp.databinding.ListFragmentBinding
-import com.example.luistovar.archapp.domain.models.PeopleData
-import com.example.luistovar.archapp.domain.models.User
+import com.example.luistovar.archapp.framework.network.webservices.models.PeopleData
+import com.example.luistovar.archapp.framework.presentation.listdata.models.User
 import com.example.luistovar.archapp.framework.presentation.common.basecomponents.BaseFragment
 import com.example.luistovar.archapp.framework.presentation.listdata.adapters.PeopleAdapter
 import dagger.hilt.android.AndroidEntryPoint

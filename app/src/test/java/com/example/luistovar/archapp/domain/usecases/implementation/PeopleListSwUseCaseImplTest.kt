@@ -1,6 +1,7 @@
-package com.example.luistovar.archapp.usecases.implementation
+package com.example.luistovar.archapp.domain.usecases.implementation
 
 import com.example.luistovar.archapp.data.repositories.PeopleListSwRepository
+import com.example.luistovar.archapp.domain.usecases.implementation.PeopleListSwUseCaseImpl
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.Before

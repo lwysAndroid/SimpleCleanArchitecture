@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.luistovar.archapp
+package com.example.luistovar.archapp.testutils
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

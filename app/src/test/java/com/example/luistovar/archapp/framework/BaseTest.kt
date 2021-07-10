@@ -1,7 +1,7 @@
 package com.example.luistovar.archapp.framework
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.luistovar.archapp.MainCoroutineRule
+import com.example.luistovar.archapp.testutils.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
 

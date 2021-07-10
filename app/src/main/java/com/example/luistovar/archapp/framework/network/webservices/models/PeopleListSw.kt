@@ -1,4 +1,4 @@
-package com.example.luistovar.archapp.domain.models
+package com.example.luistovar.archapp.framework.network.webservices.models
 
 
 import com.google.gson.annotations.SerializedName

@@ -2,7 +2,6 @@
 buildscript {
     ext.kotlin_version = "1.5.10"
     ext.nav_version = "2.3.5"
-    ext.hilt_version = "2.37"
     repositories {
         google()
         mavenCentral()
@@ -31,6 +30,6 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 ext{
-
-    truthVersion = '0.44'
+    hilt_version = "2.37"
+    truthVersion = '1.1.3'
 }

@@ -1,8 +1,8 @@
 package com.example.luistovar.archapp.data.datasources.remote.impl
 
-import com.example.luistovar.archapp.framework.network.webservices.StarWarsApi
+import com.example.luistovar.archapp.framework.network.webservices.api.StarWarsApi
 import com.example.luistovar.archapp.data.datasources.remote.PeopleListSwRemoteDataSource
-import com.example.luistovar.archapp.domain.models.PeopleListSw
+import com.example.luistovar.archapp.framework.network.webservices.models.PeopleListSw
 import com.example.luistovar.archapp.domain.models.Resource
 import java.lang.Exception
 import javax.inject.Inject

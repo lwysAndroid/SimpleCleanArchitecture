@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.luistovar.archapp.R
 import com.example.luistovar.archapp.databinding.ItemPeopleBinding
-import com.example.luistovar.archapp.domain.models.PeopleData
+import com.example.luistovar.archapp.framework.network.webservices.models.PeopleData
 
 class PeopleAdapter : RecyclerView.Adapter<PeopleAdapter.MyHolder>() {
 

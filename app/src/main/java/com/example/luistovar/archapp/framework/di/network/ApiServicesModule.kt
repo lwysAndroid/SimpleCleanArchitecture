@@ -1,6 +1,7 @@
 package com.example.luistovar.archapp.framework.di.network
 
-import com.example.luistovar.archapp.framework.network.webservices.StarWarsApi
+import com.example.luistovar.archapp.framework.network.webservices.api.StarWarsApi
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

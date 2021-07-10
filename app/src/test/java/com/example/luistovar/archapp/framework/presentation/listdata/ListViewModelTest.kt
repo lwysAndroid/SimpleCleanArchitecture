@@ -1,10 +1,10 @@
 package com.example.luistovar.archapp.framework.presentation.listdata
 
-import com.example.luistovar.archapp.domain.models.PeopleListSw
+import com.example.luistovar.archapp.framework.network.webservices.models.PeopleListSw
 import com.example.luistovar.archapp.domain.models.Resource
 import com.example.luistovar.archapp.framework.BaseTest
-import com.example.luistovar.archapp.getValueTest
-import com.example.luistovar.archapp.usecases.PeopleListSwUseCase
+import com.example.luistovar.archapp.testutils.getValueTest
+import com.example.luistovar.archapp.domain.usecases.PeopleListSwUseCase
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
