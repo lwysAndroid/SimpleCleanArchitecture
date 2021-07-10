@@ -126,7 +126,8 @@ dependencies {
 
     //Local unit tests
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:2.23.0'
+    //Mockito
+    testImplementation 'org.mockito:mockito-core:3.9.0'
     //DI Hilt
     testImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
     testAnnotationProcessor "com.google.dagger:hilt-compiler:$hilt_version"

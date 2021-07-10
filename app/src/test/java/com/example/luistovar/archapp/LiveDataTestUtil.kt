@@ -28,3 +28,7 @@ object LiveDataTestUtil {
         return data[0] as T
     }
 }
+
+fun <T> LiveData<T>.getValueTest(): T {
+    return LiveDataTestUtil.getValue(this)
+}

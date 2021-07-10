@@ -1,61 +1,55 @@
 package com.example.luistovar.archapp.framework.presentation.listdata
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.luistovar.archapp.LiveDataTestUtil
-import com.example.luistovar.archapp.MainCoroutineRule
 import com.example.luistovar.archapp.domain.models.PeopleListSw
-import com.example.luistovar.archapp.usecases.implementation.FakePeopleListSwUseCase
+import com.example.luistovar.archapp.domain.models.Resource
+import com.example.luistovar.archapp.framework.BaseTest
+import com.example.luistovar.archapp.getValueTest
+import com.example.luistovar.archapp.usecases.PeopleListSwUseCase
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
-import org.junit.Rule
-
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mockito
+import org.mockito.Mockito.mock
+import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
-class ListViewModelTest {
-
-    // Executes each task synchronously using Architecture Components.
-    @get:Rule
-    var instantExecutorRule = InstantTaskExecutorRule()
+@RunWith(MockitoJUnitRunner::class)
+class ListViewModelTest : BaseTest() {
 
     // Subject under test
     private lateinit var listViewModel: ListViewModel
 
     // Use a fake use case to be injected into the viewmodel
-    private val peopleListSwUseCase = FakePeopleListSwUseCase()
-
-    // Set the main coroutines dispatcher for unit testing.
-    @ExperimentalCoroutinesApi
-    @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
+    private lateinit var peopleListSwUseCase: PeopleListSwUseCase
 
     @Before
     fun setupListViewModel() {
+        peopleListSwUseCase = mock(PeopleListSwUseCase::class.java)
         listViewModel = ListViewModel(peopleListSwUseCase)
     }
 
 
     @Test
-    fun `get People List Sw Resource`() {
+    fun `on get People List Sw Resource return success`() = runBlockingTest {
         val peopleListSw = PeopleListSw()
-        peopleListSwUseCase.peopleListSw = peopleListSw
+        Mockito.`when`(peopleListSwUseCase.getPeopleListSwResource())
+            .then { Resource.Success(peopleListSw) }
         listViewModel.getPeopleListSwResource()
-        assertThat(LiveDataTestUtil.getValue(listViewModel.peopleListSwLiveData)).isEqualTo(
+        val resource = listViewModel.peopleListSwLiveData.getValueTest()
+        assertThat(resource).isEqualTo(
             peopleListSw
         )
-
     }
 
     @Test
-    fun `get People List Sw Resource 2`() = mainCoroutineRule.runBlockingTest {
-        val peopleListSw = PeopleListSw()
-        peopleListSwUseCase.peopleListSw = peopleListSw
+    fun `on get People List Sw Resource return error`() = runBlockingTest {
+        Mockito.`when`(peopleListSwUseCase.getPeopleListSwResource())
+            .then { Resource.Error<PeopleListSw>("No Data") }
         listViewModel.getPeopleListSwResource()
-        assertThat(LiveDataTestUtil.getValue(listViewModel.peopleListSwLiveData)).isEqualTo(
-            peopleListSw
-        )
-
+        val resource = listViewModel.showError.getValueTest()
+        assertThat(resource).isEqualTo("No Data")
     }
 }

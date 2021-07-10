@@ -1,6 +1,8 @@
 package com.example.luistovar.archapp.usecases.implementation
 
 import com.example.luistovar.archapp.data.repositories.PeopleListSwRepository
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.Before
 import org.junit.Test
 
@@ -16,10 +18,13 @@ class PeopleListSwUseCaseImplTest {
 
     private lateinit var peopleListSwUseCaseImpl: PeopleListSwUseCaseImpl
 
+    private lateinit var coroutineDispatcher: CoroutineDispatcher
+
     @Before
     fun setUp() {
-        peopleListSwUseCaseImpl = PeopleListSwUseCaseImpl(peopleListSwRepository)
-//        `when`(peopleListSwRepository.getPeopleListSW())
+        coroutineDispatcher = TestCoroutineDispatcher()
+        peopleListSwUseCaseImpl =
+            PeopleListSwUseCaseImpl(peopleListSwRepository, coroutineDispatcher)
     }
 
     @Test
