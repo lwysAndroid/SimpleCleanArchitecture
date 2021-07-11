@@ -1,9 +1,9 @@
-package com.example.luistovar.archapp.domain.models
+package com.example.luistovar.archapp.framework.network.webservices.models
 
 
 import com.google.gson.annotations.SerializedName
 
-data class PeopleData(
+data class PeopleDataResponse(
     @SerializedName("birth_year")
     var birthYear: String? = null,
     @SerializedName("created")

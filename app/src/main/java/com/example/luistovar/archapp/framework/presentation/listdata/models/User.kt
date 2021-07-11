@@ -1,4 +1,4 @@
-package com.example.luistovar.archapp.domain.models
+package com.example.luistovar.archapp.framework.presentation.listdata.models
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
