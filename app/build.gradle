@@ -105,6 +105,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     //Gson
     implementation 'com.google.code.gson:gson:2.8.7'
+    //Chromium
+    implementation 'org.chromium.net:cronet-api:76.3809.111'
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
@@ -126,10 +128,17 @@ dependencies {
 
     //Local unit tests
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:2.23.0'
+    //Mockito
+    testImplementation 'org.mockito:mockito-core:3.9.0'
     //DI Hilt
     testImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
     testAnnotationProcessor "com.google.dagger:hilt-compiler:$hilt_version"
+    //Coroutines Test
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0'
+    //Google Truth
+    testImplementation "com.google.truth:truth:$truthVersion"
+
 
 
     //Instrumentation tests (Android Test)
@@ -138,4 +147,7 @@ dependencies {
     //DI Hilt
     androidTestImplementation  "com.google.dagger:hilt-android-testing:$hilt_version"
     androidTestAnnotationProcessor "com.google.dagger:hilt-compiler:$hilt_version"
+    //Coroutines Test
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0'
 }

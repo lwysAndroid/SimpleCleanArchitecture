@@ -25,6 +25,6 @@
             app:argType="integer" />
         <argument
             android:name="currentUser"
-            app:argType="com.example.luistovar.archapp.domain.models.User" />
+            app:argType="com.example.luistovar.archapp.framework.presentation.listdata.models.User" />
     </fragment>
 </navigation>

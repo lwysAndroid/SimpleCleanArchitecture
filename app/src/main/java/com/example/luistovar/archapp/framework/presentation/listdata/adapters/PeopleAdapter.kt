@@ -6,29 +6,29 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.luistovar.archapp.R
 import com.example.luistovar.archapp.databinding.ItemPeopleBinding
-import com.example.luistovar.archapp.domain.models.PeopleData
+import com.example.luistovar.archapp.domain.models.PeopleSWDataDomain
 
 class PeopleAdapter : RecyclerView.Adapter<PeopleAdapter.MyHolder>() {
 
-    var peopleDataList: List<PeopleData?>? = listOf()
+    var peopleDataList: List<PeopleSWDataDomain>? = listOf()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
-    var onclickItem: ((peopleData: PeopleData) -> Unit)? = null
+    var onclickItem: ((peopleSWDataDomain: PeopleSWDataDomain) -> Unit)? = null
 
     class MyHolder(
         myView: View,
-        private val onClick: ((peopleData: PeopleData) -> Unit)?
+        private val onClick: ((peopleSWDataDomain: PeopleSWDataDomain) -> Unit)?
     ) :
         RecyclerView.ViewHolder(myView) {
 
         private var binding: ItemPeopleBinding = ItemPeopleBinding.bind(myView)
 
-        fun bind(peopleData: PeopleData) {
-            binding.peopleContainer.setOnClickListener { onClick?.invoke(peopleData) }
-            binding.tvPeopleName.text = peopleData.name
-            binding.tvPeopleGender.text = peopleData.gender
+        fun bind(peopleSWDataDomain: PeopleSWDataDomain) {
+            binding.peopleContainer.setOnClickListener { onClick?.invoke(peopleSWDataDomain) }
+            binding.tvPeopleName.text = peopleSWDataDomain.name
+            binding.tvPeopleGender.text = peopleSWDataDomain.gender
         }
     }
 

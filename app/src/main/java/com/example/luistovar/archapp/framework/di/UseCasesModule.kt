@@ -1,7 +1,7 @@
 package com.example.luistovar.archapp.framework.di
 
-import com.example.luistovar.archapp.usecases.PeopleListSwUseCase
-import com.example.luistovar.archapp.usecases.implementation.PeopleListSwUseCaseImpl
+import com.example.luistovar.archapp.domain.usecases.PeopleListSwUseCase
+import com.example.luistovar.archapp.domain.usecases.implementation.PeopleListSwUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

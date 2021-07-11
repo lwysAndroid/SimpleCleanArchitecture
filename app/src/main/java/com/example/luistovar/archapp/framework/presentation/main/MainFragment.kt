@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.luistovar.archapp.R
 import com.example.luistovar.archapp.databinding.MainFragmentBinding
-import com.example.luistovar.archapp.domain.models.User
+import com.example.luistovar.archapp.framework.presentation.listdata.models.User
 import com.example.luistovar.archapp.framework.presentation.common.basecomponents.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 

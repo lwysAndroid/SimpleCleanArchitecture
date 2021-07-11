@@ -7,8 +7,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.luistovar.archapp.R
 import com.example.luistovar.archapp.databinding.ListFragmentBinding
-import com.example.luistovar.archapp.domain.models.PeopleData
-import com.example.luistovar.archapp.domain.models.User
+import com.example.luistovar.archapp.domain.models.PeopleSWDataDomain
+import com.example.luistovar.archapp.domain.models.PeopleSWDomain
+import com.example.luistovar.archapp.domain.models.Resource
+import com.example.luistovar.archapp.framework.presentation.listdata.models.User
 import com.example.luistovar.archapp.framework.presentation.common.basecomponents.BaseFragment
 import com.example.luistovar.archapp.framework.presentation.listdata.adapters.PeopleAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,22 +61,25 @@ class ListFragment : BaseFragment(R.layout.list_fragment) {
     private fun setupView() {
         peopleAdapter.onclickItem = this::onClickOnItem
         binding.rVPeople.adapter = peopleAdapter
-        mViewModel.peopleListSwLiveData.observe(viewLifecycleOwner) { peopleList ->
-            peopleAdapter.peopleDataList = peopleList?.peopleData
-        }
-
-        mViewModel.showError.observe(viewLifecycleOwner) { error ->
-            error?.let { showError(it) }
-        }
-
-        mViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) {
-                binding.progressBar.visibility = View.VISIBLE
-            } else {
-                binding.progressBar.visibility = View.GONE
-            }
+        mViewModel.peopleListSwLiveData.observe(viewLifecycleOwner) {
+            managePeopleListSw(it)
         }
         showArgs()
+    }
+
+    private fun managePeopleListSw(resource: Resource<PeopleSWDomain>) {
+        binding.progressBar.visibility = View.GONE
+        when (resource) {
+            is Resource.Success -> {
+                peopleAdapter.peopleDataList = resource.data!!.peopleSWDataDomainList
+            }
+            is Resource.Error -> {
+                resource.failure!!.errorMessage?.let { showError(it) }
+            }
+            is Resource.Loading -> {
+                binding.progressBar.visibility = View.VISIBLE
+            }
+        }
     }
 
     /**
@@ -99,8 +104,8 @@ class ListFragment : BaseFragment(R.layout.list_fragment) {
     /**
      * Method to handle click on the items of the recycler view
      */
-    private fun onClickOnItem(peopleData: PeopleData) {
-        Toast.makeText(context, "name: ${peopleData.name}", Toast.LENGTH_SHORT).show()
+    private fun onClickOnItem(peopleSWDataDomain: PeopleSWDataDomain) {
+        Toast.makeText(context, "name: ${peopleSWDataDomain.name}", Toast.LENGTH_SHORT).show()
     }
 
 
