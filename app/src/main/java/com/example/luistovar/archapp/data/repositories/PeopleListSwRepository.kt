@@ -1,10 +1,9 @@
 package com.example.luistovar.archapp.data.repositories
 
-import com.example.luistovar.archapp.framework.network.webservices.models.PeopleListSw
-import com.example.luistovar.archapp.domain.models.Resource
+import com.example.luistovar.archapp.domain.models.PeopleSWDomain
 
 interface PeopleListSwRepository {
 
-    suspend fun getPeopleListSwResource(): Resource<PeopleListSw?>
+    suspend fun getPeopleListSwResource(): PeopleSWDomain
 
 }

@@ -12,7 +12,7 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class PeopleListSwUseCaseImplTest {
+class PeopleListSwResponseUseCaseImplTest {
 
     @Mock
     private lateinit var peopleListSwRepository: PeopleListSwRepository

@@ -2,9 +2,7 @@ package com.example.luistovar.archapp.data.datasources.remote.impl
 
 import com.example.luistovar.archapp.framework.network.webservices.api.StarWarsApi
 import com.example.luistovar.archapp.data.datasources.remote.PeopleListSwRemoteDataSource
-import com.example.luistovar.archapp.framework.network.webservices.models.PeopleListSw
-import com.example.luistovar.archapp.domain.models.Resource
-import java.lang.Exception
+import com.example.luistovar.archapp.framework.network.webservices.models.PeopleListSwResponse
 import javax.inject.Inject
 
 class PeopleListSwRemoteDataSourceImpl @Inject constructor(
@@ -13,16 +11,12 @@ class PeopleListSwRemoteDataSourceImpl @Inject constructor(
     PeopleListSwRemoteDataSource {
 
 
-    override suspend fun getPeopleListSwResource(): Resource<PeopleListSw?> {
-        return try {
-            val response = sarWarsApi.getPeopleListSw()
-            if (response.isSuccessful) {
-                Resource.Success(response.body())
-            } else {
-                Resource.Error("Something went Wrong")
-            }
-        } catch (exception: Exception) {
-            Resource.Error(exception.message ?: "Something went Wrong 2")
+    override suspend fun getPeopleListSwResource(): PeopleListSwResponse? {
+        val response = sarWarsApi.getPeopleListSw()
+        return if (response.isSuccessful) {
+            response.body()
+        } else {
+            null
         }
     }
 }
