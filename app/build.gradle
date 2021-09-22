@@ -9,6 +9,9 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+apply from: 'scripts/constant_values.gradle'
+
+
 def GM_API_KEY = '"' + gmApiKey + '"' ?: '"NO GOOGLE MAPS API KEY"'
 
 def BASE_URL_DEFAULT = '"' + BASE_URL_DEFAULT + '"' ?: '"NO BASE URL"'
