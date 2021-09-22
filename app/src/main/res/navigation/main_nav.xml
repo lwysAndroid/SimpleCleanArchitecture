@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.example.luistovar.archapp.framework.presentation.main.MainFragment"
+        android:id="@+id/homeFragment"
+        android:name="com.example.luistovar.archapp.presentation.home.HomeFragment"
         android:label="main_fragment"
-        tools:layout="@layout/main_fragment">
+        tools:layout="@layout/home_fragment">
         <action
             android:id="@+id/action_mainFragment_to_listFragment"
             app:destination="@id/listFragment" />
     </fragment>
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.example.luistovar.archapp.framework.presentation.listdata.ListFragment"
+        android:name="com.example.luistovar.archapp.presentation.listdata.ListFragment"
         android:label="list_fragment"
         tools:layout="@layout/list_fragment">
         <argument
@@ -25,6 +25,6 @@
             app:argType="integer" />
         <argument
             android:name="currentUser"
-            app:argType="com.example.luistovar.archapp.framework.presentation.listdata.models.User" />
+            app:argType="com.example.luistovar.archapp.presentation.listdata.models.User" />
     </fragment>
 </navigation>

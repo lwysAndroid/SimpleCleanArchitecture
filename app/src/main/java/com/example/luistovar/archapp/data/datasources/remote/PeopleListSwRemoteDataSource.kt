@@ -1,6 +1,6 @@
 package com.example.luistovar.archapp.data.datasources.remote
 
-import com.example.luistovar.archapp.framework.network.webservices.models.PeopleListSwResponse
+import com.example.luistovar.archapp.data.datasources.remote.webservices.models.PeopleListSwResponse
 
 interface PeopleListSwRemoteDataSource {
 
