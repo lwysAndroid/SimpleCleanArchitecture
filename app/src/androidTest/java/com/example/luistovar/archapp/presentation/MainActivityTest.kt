@@ -33,7 +33,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun makeClick(){
+    fun makeClickTest(){
         onView(withId(R.id.btnGoListScreen)).perform(click())
         onView(withId(R.id.progressBar)).check(matches(isDisplayed()))
     }
